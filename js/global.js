@@ -13,74 +13,57 @@ https://www.codegrepper.com/search.php?q=how%20to%20get%20all%20form%20values%20
                 return {
                     [ele.getAttribute("name")]: ele.type === "file" ? ele.files : ele.value,
                 };
-
- let row = (data) => {
-	let div = document.createElement("div"),
-		span = document.createElement("span"),
-		classes = card.class
-	div.classList.add(...classes);
-	div.appendChild(span);
-	player.appendChild(div);
-}               
+            
 */
 /**
- * Executes on browser load. Saves the cards to local storage.
+ * Executes on browser load. Accesses local storage.
  */
 window.onload = () => {
 	if (localStorage.getItem("JSListDate")) {
 		data = localStorage.getItem("JSListDate");
 		list = JSON.parse(data);
-		let tableContainer = document.getElementById("table"),
+
+		let tableContainer = document.getElementById("tableContainer"),
 			table = document.createElement("table"),
-			tr = document.createElement("tr"),
-			dataRow = document.createElement("tr");
+			tblBody = document.createElement("tbody"),
+			tblHeader = document.createElement("thead");
 
-		tableContainer.appendChild(table);
-		table.appendChild(tr);
-		let th = "<tr><th>Name</th><th>Birth Date</th></tr>";
-		tr.innerHTML = th;
-		let row = [];
+		table.classList.add("table");
+		tblHeader.innerHTML = "<tr><td>Name</td><td>Birth Date</td></tr>";
+		table.appendChild(tblHeader);
 		list.forEach((element) => {
-			let name = element[0].name,
-				dob = element[1].birth_date;
-			row.push(`<td>${name}</td><td>${dob}</td>`);
-			console.log(row);
+			console.log(typeof element);
+			let row = document.createElement("tr");
+			for (let i = 0; i < element.length; i++) {
+				let cell = document.createElement("td"),
+					cellText = document.createTextNode(element[i]);
+				cell.appendChild(cellText);
+				row.appendChild(cell);
+			}
+			tblBody.appendChild(row);
 		});
-
-		row.forEach((element, i) => {
-			dataRow.innerHTML = `<tr>${element}</tr>`;
-			table[i].appendChild(dataRow);
-		});
+		table.appendChild(tblBody);
+		tableContainer.appendChild(table);
 	}
 };
 
 /**
- * 
- * let createCard = (card) => {
-	let div = document.createElement("div"),
-		span = document.createElement("span"),
-		classes = card.class
-	div.classList.add(...classes);
-	div.appendChild(span);
-	player.appendChild(div);
-}
- * 
+ * Handles the submit button, saves to local storage
  */
 
 let list = [];
 
 const handleSubmit = (e) => {
 	e.preventDefault();
-	//console.log(e.currentTarget.elements);
-	let data = [...e.currentTarget.elements]
-		.filter((ele) => ele.type !== "submit")
-		.map((ele) => {
-			return {
-				[ele.getAttribute("name")]: ele.value,
-			};
-		});
 
-	list.push(data);
+	let arr = [],
+		data = [...e.currentTarget.elements].filter((ele) => ele.type !== "submit");
+	data.forEach((element) => {
+		arr.push(element.value);
+	});
+	list.push(arr);
 	localStorage.setItem("JSListDate", JSON.stringify(list));
 };
 document.getElementById("userData").addEventListener("submit", handleSubmit);
+
+//Calculate age

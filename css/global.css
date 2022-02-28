@@ -1,0 +1,107 @@
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+* {
+	margin: 0;
+}
+html,
+body {
+	height: 100%;
+}
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+#root,
+#__next {
+	isolation: isolate;
+}
+body {
+	font-family: sans-serif;
+	background-color: rgba(26, 11, 31, 0.918);
+	color: rgb(255, 255, 255);
+}
+.container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 1rem;
+}
+.item {
+	place-self: center;
+}
+table {
+	color: black;
+}
+thead,
+tfoot {
+	background-color: #a63f98;
+	font-weight: bold;
+}
+
+tbody {
+	background-color: #e4f0f5;
+}
+
+caption {
+	padding: 10px;
+	caption-side: bottom;
+}
+
+table {
+	border-collapse: collapse;
+	border: 2px solid rgb(200, 200, 200);
+	letter-spacing: 1px;
+	font-family: sans-serif;
+	font-size: 0.8rem;
+}
+
+td,
+th {
+	border: 1px solid rgb(190, 190, 190);
+	padding: 5px 10px;
+}
+
+td {
+	text-align: center;
+}
+
+input[type="text"],
+input[type="date"] {
+	padding: 0.5rem 0;
+}
+
+button {
+	background-color: cornflowerblue;
+	color: black;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+}
