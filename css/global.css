@@ -87,6 +87,9 @@ th {
 	border: 1px solid rgb(190, 190, 190);
 	padding: 5px 10px;
 }
+th {
+	cursor: pointer;
+}
 
 td {
 	text-align: center;

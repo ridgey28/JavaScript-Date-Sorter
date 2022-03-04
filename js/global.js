@@ -13,7 +13,7 @@ https://www.codegrepper.com/search.php?q=how%20to%20get%20all%20form%20values%20
                 return {
                     [ele.getAttribute("name")]: ele.type === "file" ? ele.files : ele.value,
                 };
-            
+     https://stackoverflow.com/questions/14267781/sorting-html-table-with-javascript       
 */
 /**
  * Executes on browser load. Accesses local storage.
@@ -28,9 +28,8 @@ window.onload = () => {
 			tblBody = document.createElement("tbody"),
 			tblHeader = document.createElement("thead");
 
-		table.classList.add("sortable");
 		tblHeader.innerHTML =
-			"<tr><th>Name</th><th>Birth Date</th><th>Age</th></tr>";
+			"<tr><th>Name <span>˅</span></th><th>Birth Date <span>˅</span></th><th>Age <span>˅</span></th></tr>";
 		table.appendChild(tblHeader);
 		list.forEach((element) => {
 			let row = document.createElement("tr");
@@ -45,6 +44,35 @@ window.onload = () => {
 		});
 		table.appendChild(tblBody);
 		tableContainer.appendChild(table);
+
+		const getCellValue = (tr, idx) =>
+			tr.children[idx].innerText || tr.children[idx].textContent;
+
+		const comparer = (idx, asc) => (a, b) =>
+			((v1, v2) =>
+				v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+					? v1 - v2
+					: v1.toString().localeCompare(v2))(
+				getCellValue(asc ? a : b, idx),
+				getCellValue(asc ? b : a, idx)
+			);
+
+		// do the work...
+		document.querySelectorAll("th").forEach((th) =>
+			th.addEventListener("click", () => {
+				const table = th.closest("table");
+				const tbody = table.querySelector("tbody");
+
+				Array.from(tbody.querySelectorAll("tr"))
+					.sort(
+						comparer(
+							Array.from(th.parentNode.children).indexOf(th),
+							(this.asc = !this.asc)
+						)
+					)
+					.forEach((tr) => tbody.appendChild(tr));
+			})
+		);
 	}
 };
 
