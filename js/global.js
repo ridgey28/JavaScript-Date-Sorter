@@ -14,11 +14,13 @@ window.onload = () => {
 			table = document.createElement("table"),
 			tblBody = document.createElement("tbody"),
 			tblHeader = document.createElement("thead");
+		tblFoot = document.createElement("tfoot");
 
 		tblHeader.innerHTML = `<tr><th>Name <span>˅</span><span class="hidden">˄</span></th><th>Birth Date <span>˅</span><span class="hidden">˄</span></th><th>Age <span>˅</span><span class="hidden">˄</span></th></tr>`;
 		table.appendChild(tblHeader);
 		list.forEach((element) => {
 			let row = document.createElement("tr");
+			//add id for delete row
 			for (let i = 0; i < element.length; i++) {
 				let cell = document.createElement("td"),
 					cellText = document.createTextNode(element[i]);
@@ -29,6 +31,7 @@ window.onload = () => {
 			tblBody.appendChild(row);
 		});
 		table.appendChild(tblBody);
+		table.appendChild(tblFoot);
 		tableContainer.appendChild(table);
 
 		const getCellValue = (tr, idx) =>
@@ -123,6 +126,10 @@ document.getElementById("checkAge").addEventListener("click", () => {
 		localStorage.setItem("JSListDate", JSON.stringify(list));
 		location.reload();
 	} else {
-		//display error message
+		TODO; //display error message
 	}
 });
+
+//clear all data
+
+//clear single record
