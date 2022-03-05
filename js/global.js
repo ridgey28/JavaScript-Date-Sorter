@@ -46,10 +46,9 @@ window.onload = () => {
 		let thead = document.querySelectorAll("th");
 		thead.forEach((th) =>
 			th.addEventListener("click", () => {
-				const table = th.closest("table");
-				const tbody = table.querySelector("tbody");
-				const span = th.querySelectorAll("span");
-				console.log(span);
+				const table = th.closest("table"),
+					tbody = table.querySelector("tbody"),
+					span = th.querySelectorAll("span");
 
 				span.forEach((ele) => {
 					if (ele.classList.contains("hidden")) {
@@ -85,7 +84,7 @@ const handleSubmit = (e) => {
 		data = [...e.currentTarget.elements].filter((ele) => ele.type !== "submit");
 
 	const dob = new Date(data[1].value);
-	const age = CalculateAge(dob);
+	age = CalculateAge(dob);
 	data.forEach((element) => {
 		arr.push(element.value);
 	});
@@ -98,9 +97,9 @@ document.getElementById("userData").addEventListener("submit", handleSubmit);
 
 //Calculate age
 let CalculateAge = (dob) => {
-	const currentDate = new Date();
-	// To calculate the time difference of two dates
-	const Difference_In_Time = currentDate.getTime() - dob.getTime();
+	const currentDate = new Date(),
+		// To calculate the time difference of two dates
+		Difference_In_Time = currentDate.getTime() - dob.getTime();
 	// To calculate the no. of days between two dates
 	return Math.floor(Difference_In_Time / (1000 * 3600 * 24) / 365.25);
 };
@@ -117,9 +116,7 @@ document.getElementById("checkAge").addEventListener("click", () => {
 	if (localStorage.getItem("JSListDate")) {
 		data = localStorage.getItem("JSListDate");
 		list = JSON.parse(data);
-		console.log(list);
 		list.forEach((element) => {
-			console.log(element);
 			const dob = new Date(element[1]);
 			element[2] = CalculateAge(dob);
 		});
