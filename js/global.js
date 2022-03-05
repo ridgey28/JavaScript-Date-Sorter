@@ -1,19 +1,6 @@
 /*
 https://www.codegrepper.com/search.php?q=how%20to%20get%20all%20form%20values%20in%20javascript
-
-//target the element and set submit event
-    document.querySelector("form").addEventListener("submit", handleSubmit);
-
-    //event function
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        let data = [...e.currentTarget.elements]
-            .filter((ele) => ele.type !== "submit")
-            .map((ele) => {
-                return {
-                    [ele.getAttribute("name")]: ele.type === "file" ? ele.files : ele.value,
-                };
-     https://stackoverflow.com/questions/14267781/sorting-html-table-with-javascript       
+https://stackoverflow.com/questions/14267781/sorting-html-table-with-javascript       
 */
 /**
  * Executes on browser load. Accesses local storage.
@@ -28,8 +15,7 @@ window.onload = () => {
 			tblBody = document.createElement("tbody"),
 			tblHeader = document.createElement("thead");
 
-		tblHeader.innerHTML =
-			"<tr><th>Name <span>˅</span></th><th>Birth Date <span>˅</span></th><th>Age <span>˅</span></th></tr>";
+		tblHeader.innerHTML = `<tr><th>Name <span>˅</span><span class="hidden">˄</span></th><th>Birth Date <span>˅</span><span class="hidden">˄</span></th><th>Age <span>˅</span><span class="hidden">˄</span></th></tr>`;
 		table.appendChild(tblHeader);
 		list.forEach((element) => {
 			let row = document.createElement("tr");
@@ -57,11 +43,21 @@ window.onload = () => {
 				getCellValue(asc ? b : a, idx)
 			);
 
-		// do the work...
-		document.querySelectorAll("th").forEach((th) =>
+		let thead = document.querySelectorAll("th");
+		thead.forEach((th) =>
 			th.addEventListener("click", () => {
 				const table = th.closest("table");
 				const tbody = table.querySelector("tbody");
+				const span = th.querySelectorAll("span");
+				console.log(span);
+
+				span.forEach((ele) => {
+					if (ele.classList.contains("hidden")) {
+						ele.classList.remove("hidden");
+					} else {
+						ele.classList.add("hidden");
+					}
+				});
 
 				Array.from(tbody.querySelectorAll("tr"))
 					.sort(
@@ -106,7 +102,7 @@ let CalculateAge = (dob) => {
 	// To calculate the time difference of two dates
 	const Difference_In_Time = currentDate.getTime() - dob.getTime();
 	// To calculate the no. of days between two dates
-	return Math.floor(Difference_In_Time / (1000 * 3600 * 24) / 365);
+	return Math.floor(Difference_In_Time / (1000 * 3600 * 24) / 365.25);
 };
 
 /**
