@@ -7,14 +7,12 @@ https://stackoverflow.com/questions/14267781/sorting-html-table-with-javascript
  */
 window.onload = () => {
 	if (localStorage.getItem("JSListDate")) {
-		data = localStorage.getItem("JSListDate");
-		list = JSON.parse(data);
-
-		let tableContainer = document.getElementById("tableContainer"),
+		let list = getStorage(),
+			tableContainer = document.getElementById("tableContainer"),
 			table = document.createElement("table"),
 			tblBody = document.createElement("tbody"),
-			tblHeader = document.createElement("thead");
-		tblFoot = document.createElement("tfoot");
+			tblHeader = document.createElement("thead"),
+			tblFoot = document.createElement("tfoot");
 
 		tblHeader.innerHTML = `<tr><th>Name <span>˅</span><span class="hidden">˄</span></th><th>Birth Date <span>˅</span><span class="hidden">˄</span></th><th>Age <span>˅</span><span class="hidden">˄</span></th></tr>`;
 		table.appendChild(tblHeader);
@@ -93,7 +91,7 @@ const handleSubmit = (e) => {
 	});
 	arr.push(age);
 	list.push(arr);
-	localStorage.setItem("JSListDate", JSON.stringify(list));
+	setStorage(list);
 	location.reload();
 };
 document.getElementById("userData").addEventListener("submit", handleSubmit);
@@ -117,19 +115,32 @@ let CalculateAge = (dob) => {
  */
 document.getElementById("checkAge").addEventListener("click", () => {
 	if (localStorage.getItem("JSListDate")) {
-		data = localStorage.getItem("JSListDate");
-		list = JSON.parse(data);
+		let list = getStorage();
 		list.forEach((element) => {
 			const dob = new Date(element[1]);
 			element[2] = CalculateAge(dob);
 		});
-		localStorage.setItem("JSListDate", JSON.stringify(list));
+		setStorage(list);
 		location.reload();
 	} else {
 		TODO; //display error message
 	}
 });
 
-//clear all data
+let getStorage = () => {
+	let data = localStorage.getItem("JSListDate");
+	return JSON.parse(data);
+};
+
+let setStorage = (data) => {
+	localStorage.setItem("JSListDate", JSON.stringify(data));
+};
+
+document.getElementById("clearTable").addEventListener("click", () => {
+	if (window.confirm("Are you sure?")) {
+		localStorage.removeItem("JSListDate");
+		location.reload();
+	}
+});
 
 //clear single record
