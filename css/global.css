@@ -98,7 +98,9 @@ td {
 label {
 	font-weight: bold;
 }
-
+#info {
+	padding: 2rem 0;
+}
 input[type="text"],
 input[type="date"] {
 	padding: 1rem;

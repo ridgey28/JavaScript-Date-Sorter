@@ -5,8 +5,28 @@ https://stackoverflow.com/questions/14267781/sorting-html-table-with-javascript
 /**
  * Executes on browser load. Accesses local storage.
  */
+let getStorage = () => {
+	let data = localStorage.getItem("JSListDate");
+	return JSON.parse(data);
+};
+//TODO not working
+let setStorage = (data) => {
+	let store = [];
+	if (check !== null) {
+		store = getStorage();
+	}
+	store.push(data);
+	localStorage.setItem("JSListDate", JSON.stringify(store));
+};
+let checkStorage = () => {
+	if (localStorage.getItem("JSListDate") === null) {
+		return null;
+	}
+};
+let check = checkStorage();
+
 window.onload = () => {
-	if (localStorage.getItem("JSListDate")) {
+	if (check !== null) {
 		let list = getStorage(),
 			tableContainer = document.getElementById("tableContainer"),
 			table = document.createElement("table"),
@@ -28,6 +48,7 @@ window.onload = () => {
 			}
 			tblBody.appendChild(row);
 		});
+
 		table.appendChild(tblBody);
 		table.appendChild(tblFoot);
 		tableContainer.appendChild(table);
@@ -90,8 +111,7 @@ const handleSubmit = (e) => {
 		arr.push(element.value);
 	});
 	arr.push(age);
-	list.push(arr);
-	setStorage(list);
+	setStorage(arr);
 	location.reload();
 };
 document.getElementById("userData").addEventListener("submit", handleSubmit);
@@ -105,6 +125,7 @@ let CalculateAge = (dob) => {
 	return Math.floor(Difference_In_Time / (1000 * 3600 * 24) / 365.25);
 };
 
+let info = document.getElementById("info");
 /**
  * Check age will recalculate the age in the database
  *
@@ -114,7 +135,7 @@ let CalculateAge = (dob) => {
  * @return  {[type]}            [return description]
  */
 document.getElementById("checkAge").addEventListener("click", () => {
-	if (localStorage.getItem("JSListDate")) {
+	if (check !== null) {
 		let list = getStorage();
 		list.forEach((element) => {
 			const dob = new Date(element[1]);
@@ -123,24 +144,19 @@ document.getElementById("checkAge").addEventListener("click", () => {
 		setStorage(list);
 		location.reload();
 	} else {
-		TODO; //display error message
+		info.innerText = "No data to check";
+		TODO; //settimeout
 	}
 });
 
-let getStorage = () => {
-	let data = localStorage.getItem("JSListDate");
-	return JSON.parse(data);
-};
-
-let setStorage = (data) => {
-	localStorage.setItem("JSListDate", JSON.stringify(data));
-};
-
 document.getElementById("clearTable").addEventListener("click", () => {
-	if (window.confirm("Are you sure?")) {
-		localStorage.removeItem("JSListDate");
-		location.reload();
+	if (check !== null) {
+		if (window.confirm("Are you sure?")) {
+			localStorage.removeItem("JSListDate");
+			location.reload();
+		}
 	}
+	//TODO add info message
 });
 
 //clear single record
