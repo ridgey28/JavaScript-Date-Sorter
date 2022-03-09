@@ -9,7 +9,7 @@ let getStorage = () => {
 	let data = localStorage.getItem("JSListDate");
 	return JSON.parse(data);
 };
-//TODO not working
+
 let setStorage = (data) => {
 	let store = [];
 	if (check !== null) {
@@ -33,16 +33,20 @@ window.onload = () => {
 			tblBody = document.createElement("tbody"),
 			tblHeader = document.createElement("thead"),
 			tblFoot = document.createElement("tfoot");
-
-		tblHeader.innerHTML = `<tr><th>Name <span>˅</span><span class="hidden">˄</span></th><th>Birth Date <span>˅</span><span class="hidden">˄</span></th><th>Age <span>˅</span><span class="hidden">˄</span></th></tr>`;
+		//TODO Select all checkboxes, delete checked checkboxes
+		tblHeader.innerHTML = `<tr><th><input type="checkbox"/></th><th>Name <span>˅</span><span class="hidden">˄</span></th><th>Birth Date <span>˅</span><span class="hidden">˄</span></th><th>Age <span>˅</span><span class="hidden">˄</span></th></tr>`;
 		table.appendChild(tblHeader);
-		list.forEach((element) => {
-			let row = document.createElement("tr");
-			//add id for delete row
+		list.forEach((element, index) => {
+			let row = document.createElement("tr"),
+				cellBx = document.createElement("td"),
+				x = document.createElement("input");
+			x.setAttribute("type", "checkbox");
+			cellBx.appendChild(x);
+			row.append(cellBx);
+			row.id = `id_${index}`;
 			for (let i = 0; i < element.length; i++) {
 				let cell = document.createElement("td"),
 					cellText = document.createTextNode(element[i]);
-
 				cell.appendChild(cellText);
 				row.appendChild(cell);
 			}
