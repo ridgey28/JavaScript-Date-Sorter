@@ -9,7 +9,6 @@ let getStorage = () => {
 	let data = localStorage.getItem("JSListDate");
 	return JSON.parse(data);
 };
-
 let setStorage = (data) => {
 	let store = [];
 	if (check !== null) {
@@ -77,11 +76,9 @@ window.onload = () => {
 					span = th.querySelectorAll("span");
 
 				span.forEach((ele) => {
-					if (ele.classList.contains("hidden")) {
-						ele.classList.remove("hidden");
-					} else {
-						ele.classList.add("hidden");
-					}
+					ele.classList.contains("hidden")
+						? ele.classList.remove("hidden")
+						: ele.classList.add("hidden");
 				});
 
 				Array.from(tbody.querySelectorAll("tr"))
@@ -94,19 +91,15 @@ window.onload = () => {
 					.forEach((tr) => tbody.appendChild(tr));
 			})
 		);
-	}
 
-	document.getElementById("cb").addEventListener("click", function () {
-		//find checkAll checkboxes
-		let checkboxes = document.querySelectorAll('input[name="select"]');
-		checkboxes.forEach((ele) => {
-			if (cb.checked) {
-				ele.checked = true;
-			} else {
-				ele.checked = false;
-			}
+		document.getElementById("cb").addEventListener("click", function () {
+			//find checkAll checkboxes
+			let checkboxes = document.querySelectorAll('input[name="select"]');
+			checkboxes.forEach((ele) => {
+				cb.checked ? (ele.checked = true) : (ele.checked = false);
+			});
 		});
-	});
+	}
 };
 
 /**
