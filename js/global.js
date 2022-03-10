@@ -33,14 +33,14 @@ window.onload = () => {
 			tblBody = document.createElement("tbody"),
 			tblHeader = document.createElement("thead"),
 			tblFoot = document.createElement("tfoot");
-		//TODO Select all checkboxes, delete checked checkboxes
-		tblHeader.innerHTML = `<tr><th><input type="checkbox"/></th><th>Name <span>˅</span><span class="hidden">˄</span></th><th>Birth Date <span>˅</span><span class="hidden">˄</span></th><th>Age <span>˅</span><span class="hidden">˄</span></th></tr>`;
+		tblHeader.innerHTML = `<tr><th><input id="cb" name="cb" type="checkbox"/></th><th>Name <span>˅</span><span class="hidden">˄</span></th><th>Birth Date <span>˅</span><span class="hidden">˄</span></th><th>Age <span>˅</span><span class="hidden">˄</span></th></tr>`;
 		table.appendChild(tblHeader);
 		list.forEach((element, index) => {
 			let row = document.createElement("tr"),
 				cellBx = document.createElement("td"),
 				x = document.createElement("input");
 			x.setAttribute("type", "checkbox");
+			x.setAttribute("name", "select");
 			cellBx.appendChild(x);
 			row.append(cellBx);
 			row.id = `id_${index}`;
@@ -95,6 +95,18 @@ window.onload = () => {
 			})
 		);
 	}
+
+	document.getElementById("cb").addEventListener("click", function () {
+		//find checkAll checkboxes
+		let checkboxes = document.querySelectorAll('input[name="select"]');
+		checkboxes.forEach((ele) => {
+			if (cb.checked) {
+				ele.checked = true;
+			} else {
+				ele.checked = false;
+			}
+		});
+	});
 };
 
 /**
@@ -148,8 +160,7 @@ document.getElementById("checkAge").addEventListener("click", () => {
 		setStorage(list);
 		location.reload();
 	} else {
-		info.innerText = "No data to check";
-		TODO; //settimeout
+		displayMessage("No data to check");
 	}
 });
 
@@ -159,8 +170,14 @@ document.getElementById("clearTable").addEventListener("click", () => {
 			localStorage.removeItem("JSListDate");
 			location.reload();
 		}
+	} else {
+		displayMessage("No table to clear");
 	}
-	//TODO add info message
 });
 
-//clear single record
+let displayMessage = (msg) => {
+	info.innerText = msg;
+	setTimeout(function () {
+		info.innerText = "";
+	}, 5000);
+};
