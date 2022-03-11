@@ -10,10 +10,13 @@ let getStorage = () => {
 	return JSON.parse(data);
 };
 let setStorage = (data) => {
+	//starts empty
 	let store = [];
+	//if it exists or if deleted isnt true - get the storage
 	if (check !== null) {
 		store = getStorage();
 	}
+	//single item
 	store.push(data);
 	localStorage.setItem("JSListDate", JSON.stringify(store));
 };
@@ -30,8 +33,7 @@ window.onload = () => {
 			tableContainer = document.getElementById("tableContainer"),
 			table = document.createElement("table"),
 			tblBody = document.createElement("tbody"),
-			tblHeader = document.createElement("thead"),
-			tblFoot = document.createElement("tfoot");
+			tblHeader = document.createElement("thead");
 		tblHeader.innerHTML = `<tr><th><input id="cb" name="cb" type="checkbox"/></th><th>Name <span>˅</span><span class="hidden">˄</span></th><th>Birth Date <span>˅</span><span class="hidden">˄</span></th><th>Age <span>˅</span><span class="hidden">˄</span></th></tr>`;
 		table.appendChild(tblHeader);
 		list.forEach((element, index) => {
@@ -40,6 +42,7 @@ window.onload = () => {
 				x = document.createElement("input");
 			x.setAttribute("type", "checkbox");
 			x.setAttribute("name", "select");
+			x.setAttribute("id", index);
 			cellBx.appendChild(x);
 			row.append(cellBx);
 			row.id = `id_${index}`;
@@ -51,10 +54,15 @@ window.onload = () => {
 			}
 			tblBody.appendChild(row);
 		});
-
+		let div = document.createElement("div"),
+			btn = document.createElement("button");
+		btn.setAttribute("id", "delBtn");
+		btn.innerText = "Delete";
+		btn.addEventListener("click", removeData);
+		div.appendChild(btn);
 		table.appendChild(tblBody);
-		table.appendChild(tblFoot);
 		tableContainer.appendChild(table);
+		tableContainer.appendChild(div);
 
 		const getCellValue = (tr, idx) =>
 			tr.children[idx].innerText || tr.children[idx].textContent;
@@ -102,6 +110,21 @@ window.onload = () => {
 	}
 };
 
+let removeData = () => {
+	let checked = document.querySelectorAll("input:checked"),
+		store = getStorage(),
+		len = checked.length;
+	for (i = 0; i < checked.length; i++) {
+		store.splice(checked[i].id, len);
+	}
+	console.log(store.length);
+	if (!store.length === 0) {
+		localStorage.setItem("JSListDate", JSON.stringify(store));
+	} else {
+		localStorage.removeItem("JSListDate");
+	}
+	location.reload();
+};
 /**
  * Handles the submit button, saves to local storage
  */
