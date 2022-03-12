@@ -13,6 +13,7 @@
 html,
 body {
 	height: 100%;
+	font-size: 16px;
 }
 body {
 	line-height: 1.5;
@@ -41,14 +42,23 @@ h1 {
 	isolation: isolate;
 }
 body {
-	font-family: sans-serif;
+	font-family: "Poppins", sans-serif;
 	background: url("../img/cool-background.png") repeat;
 	color: rgb(255, 255, 255);
+}
+h1 {
+	font-family: "Oswald", sans-serif;
+	font-size: 2.5rem;
+	color: #2c3373;
+}
+p {
+	font-size: 1.5rem;
 }
 .container {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	column-gap: 1rem;
+	padding: 0 1rem;
 	width: 100%;
 }
 .item {
@@ -107,11 +117,11 @@ input[type="date"] {
 }
 
 button {
-	background-color: rgba(41, 42, 46, 0.795);
+	background-color: rgb(41 42 46);
 	color: rgb(248, 248, 248);
-	padding: 1rem;
+	padding: 0.5rem;
 	border-radius: 0.5rem;
-	border: solid 2px #65696b;
+	border: solid 2px #252626;
 	font-weight: bold;
 }
 .hidden {

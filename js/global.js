@@ -2,31 +2,47 @@
 https://www.codegrepper.com/search.php?q=how%20to%20get%20all%20form%20values%20in%20javascript
 https://stackoverflow.com/questions/14267781/sorting-html-table-with-javascript       
 */
+
 /**
- * Executes on browser load. Accesses local storage.
+ * Gets the storage from the browser
+ * @returns
  */
 let getStorage = () => {
 	let data = localStorage.getItem("JSListDate");
 	return JSON.parse(data);
 };
+
+/**
+ * Sets the storage to the browser
+ * @param {array} data
+ */
 let setStorage = (data) => {
-	//starts empty
 	let store = [];
-	//if it exists or if deleted isnt true - get the storage
+	//if it already exists get the storage
 	if (check !== null) {
 		store = getStorage();
 	}
-	//single item
+	//Push the arr to the store
 	store.push(data);
 	localStorage.setItem("JSListDate", JSON.stringify(store));
 };
+
+/**
+ * Checks if local storage exists
+ * @returns null
+ */
 let checkStorage = () => {
 	if (localStorage.getItem("JSListDate") === null) {
 		return null;
 	}
 };
+
+//global to check if storage exists
 let check = checkStorage();
 
+/**
+ * Loads the table on load
+ */
 window.onload = () => {
 	if (check !== null) {
 		let list = getStorage(),
@@ -99,9 +115,8 @@ window.onload = () => {
 					.forEach((tr) => tbody.appendChild(tr));
 			})
 		);
-
+		//Select checkboxxes
 		document.getElementById("cb").addEventListener("click", function () {
-			//find checkAll checkboxes
 			let checkboxes = document.querySelectorAll('input[name="select"]');
 			checkboxes.forEach((ele) => {
 				cb.checked ? (ele.checked = true) : (ele.checked = false);
@@ -110,6 +125,9 @@ window.onload = () => {
 	}
 };
 
+/**
+ * Deletes the items selected in the table
+ */
 let removeData = () => {
 	let checked = document.querySelectorAll("input:checked"),
 		store = getStorage(),
@@ -118,19 +136,20 @@ let removeData = () => {
 		store.splice(checked[i].id, len);
 	}
 	console.log(store.length);
-	if (!store.length === 0) {
+	//check the store length - if it has more than 0
+	if (store.length !== 0) {
+		//add to the database
 		localStorage.setItem("JSListDate", JSON.stringify(store));
 	} else {
+		//no entries left remove everything
 		localStorage.removeItem("JSListDate");
 	}
 	location.reload();
 };
+
 /**
  * Handles the submit button, saves to local storage
  */
-
-let list = [];
-
 const handleSubmit = (e) => {
 	e.preventDefault();
 
@@ -148,7 +167,11 @@ const handleSubmit = (e) => {
 };
 document.getElementById("userData").addEventListener("submit", handleSubmit);
 
-//Calculate age
+/**
+ * Calculates the age of the person
+ * @param {Date} dob
+ * @returns age
+ */
 let CalculateAge = (dob) => {
 	const currentDate = new Date(),
 		// To calculate the time difference of two dates
@@ -158,13 +181,9 @@ let CalculateAge = (dob) => {
 };
 
 let info = document.getElementById("info");
+
 /**
- * Check age will recalculate the age in the database
- *
- * @param   {[type]}  checkAge  [checkAge description]
- * @param   {[type]}  click     [click description]
- *
- * @return  {[type]}            [return description]
+ * Check age button will recalculate the age in the database
  */
 document.getElementById("checkAge").addEventListener("click", () => {
 	if (check !== null) {
@@ -180,6 +199,10 @@ document.getElementById("checkAge").addEventListener("click", () => {
 	}
 });
 
+/**
+ * Clears the database
+ */
+
 document.getElementById("clearTable").addEventListener("click", () => {
 	if (check !== null) {
 		if (window.confirm("Are you sure?")) {
@@ -190,6 +213,12 @@ document.getElementById("clearTable").addEventListener("click", () => {
 		displayMessage("No table to clear");
 	}
 });
+
+/**
+ *
+ * Displays a message if a buttton is pressed and there is no data to show
+ * @param {string} msg
+ */
 
 let displayMessage = (msg) => {
 	info.innerText = msg;
