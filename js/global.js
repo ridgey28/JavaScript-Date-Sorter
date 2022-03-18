@@ -3,6 +3,12 @@ https://www.codegrepper.com/search.php?q=how%20to%20get%20all%20form%20values%20
 https://stackoverflow.com/questions/14267781/sorting-html-table-with-javascript       
 */
 
+/*
+JS Date Sorter Table
+Author: Tracy Ridge
+Version: 1.0     
+*/
+
 /**
  * Gets the storage from the browser
  * @returns
@@ -16,14 +22,17 @@ let getStorage = () => {
  * Sets the storage to the browser
  * @param {array} data
  */
-let setStorage = (data) => {
+let setStorage = (data, calculated = false) => {
 	let store = [];
 	//if it already exists get the storage
 	if (check !== null) {
 		store = getStorage();
 	}
-	//Push the arr to the store
-	store.push(data);
+	//If the age is not being calculated
+	if (!calculated) {
+		//Push the arr to the store
+		store.push(data);
+	}
 	localStorage.setItem("JSListDate", JSON.stringify(store));
 };
 
@@ -119,7 +128,7 @@ window.onload = () => {
 		document.getElementById("cb").addEventListener("click", function () {
 			let checkboxes = document.querySelectorAll('input[name="select"]');
 			checkboxes.forEach((ele) => {
-				cb.checked ? (ele.checked = true) : (ele.checked = false);
+				this.checked ? (ele.checked = true) : (ele.checked = false);
 			});
 		});
 	}
@@ -132,10 +141,10 @@ let removeData = () => {
 	let checked = document.querySelectorAll("input:checked"),
 		store = getStorage(),
 		len = checked.length;
-	for (i = 0; i < checked.length; i++) {
+	for (let i = 0; i < checked.length; i++) {
 		store.splice(checked[i].id, len);
 	}
-	console.log(store.length);
+
 	//check the store length - if it has more than 0
 	if (store.length !== 0) {
 		//add to the database
@@ -157,7 +166,7 @@ const handleSubmit = (e) => {
 		data = [...e.currentTarget.elements].filter((ele) => ele.type !== "submit");
 
 	const dob = new Date(data[1].value);
-	age = CalculateAge(dob);
+	let age = CalculateAge(dob);
 	data.forEach((element) => {
 		arr.push(element.value);
 	});
@@ -192,7 +201,7 @@ document.getElementById("checkAge").addEventListener("click", () => {
 			const dob = new Date(element[1]);
 			element[2] = CalculateAge(dob);
 		});
-		setStorage(list);
+		setStorage(list, true);
 		location.reload();
 	} else {
 		displayMessage("No data to check");

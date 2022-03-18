@@ -107,6 +107,8 @@ td {
 
 label {
 	font-weight: bold;
+	color: #2c3373;
+	font-size: larger;
 }
 #info {
 	padding: 2rem 0;
