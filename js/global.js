@@ -1,11 +1,7 @@
 /*
-https://www.codegrepper.com/search.php?q=how%20to%20get%20all%20form%20values%20in%20javascript
-https://stackoverflow.com/questions/14267781/sorting-html-table-with-javascript       
-*/
-
-/*
 JS Date Sorter Table
 Author: Tracy Ridge
+URL: https://wp.me/poe8j-3Jf
 Version: 1.0     
 */
 
@@ -89,6 +85,7 @@ window.onload = () => {
 		tableContainer.appendChild(table);
 		tableContainer.appendChild(div);
 
+		//Sorting data
 		const getCellValue = (tr, idx) =>
 			tr.children[idx].innerText || tr.children[idx].textContent;
 
@@ -100,7 +97,7 @@ window.onload = () => {
 				getCellValue(asc ? a : b, idx),
 				getCellValue(asc ? b : a, idx)
 			);
-
+		//creates the table head with the dropdowns
 		let thead = document.querySelectorAll("th");
 		thead.forEach((th) =>
 			th.addEventListener("click", () => {
@@ -124,7 +121,7 @@ window.onload = () => {
 					.forEach((tr) => tbody.appendChild(tr));
 			})
 		);
-		//Select checkboxxes
+		//Select checkboxes
 		document.getElementById("cb").addEventListener("click", function () {
 			let checkboxes = document.querySelectorAll('input[name="select"]');
 			checkboxes.forEach((ele) => {
@@ -189,8 +186,6 @@ let CalculateAge = (dob) => {
 	return Math.floor(Difference_In_Time / (1000 * 3600 * 24) / 365.25);
 };
 
-let info = document.getElementById("info");
-
 /**
  * Check age button will recalculate the age in the database
  */
@@ -230,6 +225,7 @@ document.getElementById("clearTable").addEventListener("click", () => {
  */
 
 let displayMessage = (msg) => {
+	let info = document.getElementById("info");
 	info.innerText = msg;
 	setTimeout(function () {
 		info.innerText = "";

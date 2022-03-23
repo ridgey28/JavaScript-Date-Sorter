@@ -7,18 +7,22 @@
 *::after {
 	box-sizing: border-box;
 }
+
 * {
 	margin: 0;
 }
+
 html,
 body {
 	height: 100%;
 	font-size: 16px;
 }
+
 body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 }
+
 img,
 picture,
 video,
@@ -27,33 +31,40 @@ svg {
 	display: block;
 	max-width: 100%;
 }
+
 input,
 button,
 textarea,
 select {
 	font: inherit;
 }
+
 p,
 h1 {
 	overflow-wrap: break-word;
 }
+
 #root,
 #__next {
 	isolation: isolate;
 }
+
 body {
 	font-family: "Poppins", sans-serif;
 	background: url("../img/cool-background.png") repeat;
 	color: rgb(255, 255, 255);
 }
+
 h1 {
 	font-family: "Oswald", sans-serif;
 	font-size: 2.5rem;
 	color: #2c3373;
 }
+
 p {
 	font-size: 1.5rem;
 }
+
 .container {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -61,15 +72,19 @@ p {
 	padding: 0 1rem;
 	width: 100%;
 }
+
 .item {
 	place-self: center;
 }
+
 .innerContainer {
 	margin: 5rem 0;
 }
+
 table {
 	color: black;
 }
+
 thead,
 tfoot {
 	background-color: rgba(41, 42, 46, 0.795);
@@ -97,6 +112,7 @@ th {
 	border: 1px solid rgb(190, 190, 190);
 	padding: 5px 10px;
 }
+
 th {
 	cursor: pointer;
 }
@@ -110,9 +126,11 @@ label {
 	color: #2c3373;
 	font-size: larger;
 }
+
 #info {
 	padding: 2rem 0;
 }
+
 input[type="text"],
 input[type="date"] {
 	padding: 1rem;
@@ -126,6 +144,7 @@ button {
 	border: solid 2px #252626;
 	font-weight: bold;
 }
+
 .hidden {
 	display: none;
 }
